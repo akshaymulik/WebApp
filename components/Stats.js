@@ -2,20 +2,32 @@ import styled from "styled-components";
 import useStats from "../utils/useStats";
 
 const StatGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1rem;
+  display: flex;
+  justify-content: space-between;
+  @media screen and (max-width: 696px) {
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 const StatBlock = styled.div`
-  background: #f2f2f2;
+  width: 28%;
   font-size: 2rem;
-  padding: 2rem;
+  padding: 0.5rem;
   border-radius: 2rem;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  text-align: center;
+  @media screen and (max-width: 696px) {
+    width: auto;
+  }
 `;
+
+const Orange = {
+  backgroundColor: "#ff944d"
+};
+const Red = {
+  backgroundColor: "#ff6666"
+};
+const Green = {
+  backgroundColor: "#00ff00"
+};
 
 export default function Stats({ url }) {
   const { stats, loading, error } = useStats(url);
@@ -27,15 +39,15 @@ export default function Stats({ url }) {
         <p>{error}</p>
       ) : (
         <StatGrid>
-          <StatBlock>
+          <StatBlock style={Orange}>
             <h3>Confirmed:</h3>
             <span>{stats.confirmed ? stats.confirmed.value : "NA"}</span>
           </StatBlock>
-          <StatBlock>
+          <StatBlock style={Red}>
             <h3>Deaths:</h3>
             <span>{stats.deaths ? stats.deaths.value : "NA"}</span>
           </StatBlock>
-          <StatBlock>
+          <StatBlock style={Green}>
             <h3>Recovered:</h3>
             <span>{stats.recovered ? stats.recovered.value : "NA"}</span>
           </StatBlock>
